@@ -1,0 +1,132 @@
+{
+  "apple_black_rot": {
+    "plant": "mar",
+    "status": "boala",
+    "diagnosis": "black rot la mar",
+    "likely_cause": "infectie fungica, favorizata de frunze/fructe infectate ramase in livada si umiditate ridicata",
+    "visual_symptoms": [
+      "pete maronii sau negre pe frunze",
+      "leziuni circulare pe fructe",
+      "zone uscate pe ramuri sau fructe mumificate"
+    ],
+    "soil_recommendation": [
+      "nu este in primul rand o problema de sol",
+      "mentine fertilizare echilibrata si evita excesul de azot",
+      "adauga compost matur doar ca suport general pentru vigoarea pomului",
+      "fa test de sol inainte de adaosuri mari de potasiu, calciu sau amendamente de pH"
+    ],
+    "treatment": [
+      "indeparteaza frunzele, fructele si ramurile puternic infectate",
+      "nu lasa fructe mumificate in pom sau pe sol",
+      "taie pentru aerisirea coroanei",
+      "foloseste tratament fungicid preventiv conform etichetei produsului si legislatiei locale"
+    ]
+  },
+  "apple_cedar_apple_rust": {
+    "plant": "mar",
+    "status": "boala",
+    "diagnosis": "cedar apple rust la mar",
+    "likely_cause": "infectie fungica ce alterneaza intre mar si ienupar/cedru ornamental",
+    "visual_symptoms": [
+      "pete portocalii sau galbene pe frunze",
+      "puncte inchise in centrul petelor",
+      "caderea prematura a frunzelor in cazuri severe"
+    ],
+    "soil_recommendation": [
+      "nu se rezolva prin adaugarea unui nutrient in sol",
+      "mentine solul bine drenat si acopera cu mulci organic",
+      "evita excesul de azot, care poate produce crestere frageda sensibila"
+    ],
+    "treatment": [
+      "verifica daca exista ienupari infectati in apropiere",
+      "indeparteaza frunzele puternic afectate cand este practic",
+      "aplica preventiv fungicid in perioadele de risc, inainte de infectii puternice"
+    ]
+  },
+  "apple_healthy": {
+    "plant": "mar",
+    "status": "sanatos",
+    "diagnosis": "frunza de mar sanatoasa",
+    "likely_cause": "nu au fost detectate simptome clare in clasele cunoscute",
+    "visual_symptoms": [
+      "culoare verde uniforma",
+      "fara pete mari, rugina sau mucegai vizibil",
+      "tesut foliar consistent"
+    ],
+    "soil_recommendation": [
+      "nu adauga tratamente fara motiv",
+      "mentine mulci organic si compost matur in cantitati moderate",
+      "verifica periodic pH-ul si umiditatea solului"
+    ],
+    "treatment": [
+      "monitorizeaza pomul",
+      "continua udarea si fertilizarea echilibrata",
+      "pastreaza coroana aerisita"
+    ]
+  },
+  "apple_scab": {
+    "plant": "mar",
+    "status": "boala",
+    "diagnosis": "rapan la mar",
+    "likely_cause": "infectie fungica favorizata de frunze umede si resturi infectate",
+    "visual_symptoms": [
+      "pete maslinii sau maronii pe frunze",
+      "deformari ale frunzelor",
+      "pete rugoase pe fructe in cazuri avansate"
+    ],
+    "soil_recommendation": [
+      "nu este o carenta nutritiva principala",
+      "strange frunzele cazute, deoarece pot pastra sporii",
+      "adauga compost matur si mulci pentru sanatatea generala a solului",
+      "evita fertilizarea excesiva cu azot"
+    ],
+    "treatment": [
+      "indeparteaza frunzele cazute si materialul infectat",
+      "taie pentru circulatia aerului",
+      "evita udarea directa pe frunze",
+      "aplica tratament fungicid preventiv in perioadele umede"
+    ]
+  },
+  "cherry_healthy": {
+    "plant": "cires",
+    "status": "sanatos",
+    "diagnosis": "frunza de cires sanatoasa",
+    "likely_cause": "nu au fost detectate simptome clare in clasele cunoscute",
+    "visual_symptoms": [
+      "frunza verde si uniforma",
+      "fara depuneri albe",
+      "fara pete severe"
+    ],
+    "soil_recommendation": [
+      "nu adauga tratament fara simptome",
+      "mentine drenaj bun",
+      "foloseste compost matur in cantitati moderate"
+    ],
+    "treatment": [
+      "monitorizeaza periodic",
+      "mentine coroana aerisita",
+      "evita stresul hidric"
+    ]
+  },
+  "cherry_powdery_mildew": {
+    "plant": "cires",
+    "status": "boala",
+    "diagnosis": "fainare la cires",
+    "likely_cause": "infectie fungica favorizata de crestere frageda, umiditate si ventilatie slaba",
+    "visual_symptoms": [
+      "depunere alba-prafoasa pe frunze",
+      "frunze incretite sau deformate",
+      "crestere tanara afectata"
+    ],
+    "soil_recommendation": [
+      "evita excesul de azot",
+      "mentine drenaj bun si mulci organic",
+      "compostul matur poate ajuta vigoarea, dar nu trateaza direct fainarea"
+    ],
+    "treatment": [
+      "taie pentru aerisirea coroanei",
+      "indeparteaza lastarii foarte afectati",
+      "foloseste tratamente omologate pentru fainare, de exemplu pe baza de sulf sau produse recomandate local"
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.log
+.venv/
+venv/
+
+data/
+!data/.gitkeep
+
+models/classifier/*
+!models/classifier/best_model.pt
+
+.env
+.idea/
+.vscode/

@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+.git/
+.gitignore
+
+data/
+models/classifier/best_model_before_*.pt
+models/classifier/best_model_plantvillage_only.pt
+models/classifier/last_model.pt
+models/classifier/*.csv
+models/classifier/*.json
+
+*.log
+.venv/
+venv/
