@@ -36,12 +36,12 @@ pipeline {
 
         stage('Deploy To AWS EC2') {
             steps {
-                sshagent(credentials: ["${params.SSH_CREDENTIALS_ID}"]) {
+                withCredentials([sshUserPrivateKey(credentialsId: "${params.SSH_CREDENTIALS_ID}", keyFileVariable: 'SSH_KEY')]) {
                     sh '''
                         set -e
-                        scp -o StrictHostKeyChecking=no "${IMAGE_TAR}" "${EC2_USER}@${EC2_HOST}:/tmp/${IMAGE_TAR}"
-                        scp -o StrictHostKeyChecking=no deploy/ec2_deploy.sh "${EC2_USER}@${EC2_HOST}:/tmp/ec2_deploy.sh"
-                        ssh -o StrictHostKeyChecking=no "${EC2_USER}@${EC2_HOST}" \
+                        scp -i "${SSH_KEY}" -o StrictHostKeyChecking=no "${IMAGE_TAR}" "${EC2_USER}@${EC2_HOST}:/tmp/${IMAGE_TAR}"
+                        scp -i "${SSH_KEY}" -o StrictHostKeyChecking=no deploy/ec2_deploy.sh "${EC2_USER}@${EC2_HOST}:/tmp/ec2_deploy.sh"
+                        ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no "${EC2_USER}@${EC2_HOST}" \
                           "chmod +x /tmp/ec2_deploy.sh && APP_NAME=${APP_NAME} IMAGE_NAME=${APP_NAME}:${IMAGE_TAG} IMAGE_TAR=/tmp/${IMAGE_TAR} APP_PORT=${APP_PORT} /tmp/ec2_deploy.sh"
                     '''
                 }

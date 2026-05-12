@@ -42,3 +42,5 @@ sudo docker run -d \
 
 echo "[OK] Deploy terminat"
 sudo docker ps --filter "name=${APP_NAME}"
+rm -f "${IMAGE_TAR}"
+sudo docker image prune -f >/dev/null 2>&1 || true
