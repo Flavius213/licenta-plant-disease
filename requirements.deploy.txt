@@ -1,0 +1,12 @@
+icrawler>=0.6.10
+fastapi>=0.115
+Pillow>=10.0
+ImageHash>=4.3.0
+python-multipart>=0.0.9
+requests>=2.31.0
+numpy>=2.0
+opencv-python-headless>=4.8
+onnxruntime>=1.25
+rembg>=2.0
+scikit-learn>=1.4
+uvicorn[standard]>=0.30

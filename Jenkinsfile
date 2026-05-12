@@ -29,7 +29,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t ${APP_NAME}:${IMAGE_TAG} .'
+                sh 'DOCKER_BUILDKIT=0 docker build -t ${APP_NAME}:${IMAGE_TAG} .'
                 sh 'docker save ${APP_NAME}:${IMAGE_TAG} | gzip > ${IMAGE_TAR}'
             }
         }
