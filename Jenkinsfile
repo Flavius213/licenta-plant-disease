@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'EC2_HOST', defaultValue: 'ec2-x-x-x-x.eu-central-1.compute.amazonaws.com', description: 'DNS/IP instanta AWS EC2')
+        string(name: 'EC2_HOST', defaultValue: '127.0.0.1', description: 'DNS/IP instanta AWS EC2; 127.0.0.1 cand Jenkins ruleaza pe aceeasi instanta')
         string(name: 'EC2_USER', defaultValue: 'ubuntu', description: 'User SSH EC2, de obicei ubuntu pentru Ubuntu AMI')
         string(name: 'SSH_CREDENTIALS_ID', defaultValue: 'aws-ec2-ssh-key', description: 'ID credential SSH din Jenkins')
         string(name: 'APP_PORT', defaultValue: '8000', description: 'Port public pe EC2')
     }
 
     environment {
-        APP_NAME = 'plant-diagnosis-api'
+        APP_NAME = 'licenta-plant-api'
         IMAGE_TAG = "${env.BUILD_NUMBER}"
         IMAGE_TAR = 'plant-diagnosis-api.tar.gz'
     }
@@ -51,7 +51,7 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'plant-diagnosis-api.tar.gz', fingerprint: true, onlyIfSuccessful: false
+            sh 'rm -f ${IMAGE_TAR}'
         }
     }
 }
