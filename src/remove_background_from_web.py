@@ -37,7 +37,7 @@ def safe_path_in_project(path: Path) -> Path:
     resolved_path = path.resolve()
     resolved_base = BASE_DIR.resolve()
     if resolved_base not in resolved_path.parents and resolved_path != resolved_base:
-        raise ValueError(f"Refuz sa modific fisier in afara proiectului: {resolved_path}")
+        raise ValueError(f"Refusing to modify a file outside the project: {resolved_path}")
     return resolved_path
 
 
@@ -77,7 +77,7 @@ def process_web_images(
     limit: int | None,
 ) -> int:
     if not raw_dir.exists():
-        raise FileNotFoundError(f"Nu exista folder raw: {raw_dir}")
+        raise FileNotFoundError(f"Raw folder does not exist: {raw_dir}")
 
     rows: list[dict[str, str]] = []
     processed = 0
@@ -127,23 +127,23 @@ def process_web_images(
         )
 
         if processed and processed % 50 == 0:
-            print(f"[INFO] Imagini web procesate: {processed}/{len(web_images)}")
+            print(f"[INFO] Processed web images: {processed}/{len(web_images)}")
 
     write_manifest(rows, manifest_path)
-    print(f"[OK] Imagini web procesate cu fundal scos: {processed}")
+    print(f"[OK] Web images processed with background removed: {processed}")
     print(f"[OK] Manifest: {manifest_path}")
-    print(f"[OK] Originale web mutate/copiate in: {backup_dir}")
+    print(f"[OK] Web originals moved/copied to: {backup_dir}")
     return processed
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Scoate fundalul imaginilor web din data/raw.")
+    parser = argparse.ArgumentParser(description="Remove the background from web images in data/raw.")
     parser.add_argument("--raw-dir", default=str(RAW_DIR))
     parser.add_argument("--backup-dir", default=str(BACKUP_DIR_DEFAULT))
     parser.add_argument("--manifest", default=str(MANIFEST_DEFAULT))
     parser.add_argument("--backend", choices=["auto", "rembg", "opencv"], default="auto")
-    parser.add_argument("--keep-originals", action="store_true", help="Copiaza originalele in loc sa le mute.")
-    parser.add_argument("--limit", type=int, help="Proceseaza doar primele N imagini web.")
+    parser.add_argument("--keep-originals", action="store_true", help="Copy the originals instead of moving them.")
+    parser.add_argument("--limit", type=int, help="Process only the first N web images.")
     args = parser.parse_args()
 
     process_web_images(

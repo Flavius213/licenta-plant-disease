@@ -23,6 +23,18 @@ PLANTVILLAGE_CLASS_MAP = {
     "Apple___healthy": "apple_healthy",
     "Cherry_(including_sour)___Powdery_mildew": "cherry_powdery_mildew",
     "Cherry_(including_sour)___healthy": "cherry_healthy",
+    "Strawberry___healthy": "strawberry_healthy",
+    "Strawberry___Leaf_scorch": "strawberry_leaf_scorch",
+    "Tomato___Bacterial_spot": "tomato_bacterial_spot",
+    "Tomato___Early_blight": "tomato_early_blight",
+    "Tomato___healthy": "tomato_healthy",
+    "Tomato___Late_blight": "tomato_late_blight",
+    "Tomato___Leaf_Mold": "tomato_leaf_mold",
+    "Tomato___Septoria_leaf_spot": "tomato_septoria_leaf_spot",
+    "Tomato___Spider_mites Two-spotted_spider_mite": "tomato_spider_mites",
+    "Tomato___Target_Spot": "tomato_target_spot",
+    "Tomato___Tomato_mosaic_virus": "tomato_mosaic_virus",
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus": "tomato_yellow_leaf_curl_virus",
 }
 
 MANIFEST_FIELDS = [
@@ -105,12 +117,12 @@ def import_plantvillage(
 ) -> None:
     source_dir = source_dir.resolve()
     if not source_dir.exists():
-        raise FileNotFoundError(f"Folderul PlantVillage nu exista: {source_dir}")
+        raise FileNotFoundError(f"PlantVillage folder does not exist: {source_dir}")
 
     label_dirs = find_label_dirs(source_dir, variant)
     if not label_dirs:
         known_labels = ", ".join(PLANTVILLAGE_CLASS_MAP)
-        raise ValueError(f"Nu am gasit foldere PlantVillage cunoscute. Caut etichete ca: {known_labels}")
+        raise ValueError(f"No known PlantVillage folders were found. Expected labels such as: {known_labels}")
 
     total_imported = 0
     manifest_rows: list[dict[str, object]] = []
@@ -118,7 +130,7 @@ def import_plantvillage(
     for source_label, class_name in PLANTVILLAGE_CLASS_MAP.items():
         label_dir = label_dirs.get(source_label)
         if not label_dir:
-            print(f"[SKIP] Lipseste in PlantVillage: {source_label}")
+            print(f"[SKIP] Missing in PlantVillage: {source_label}")
             continue
 
         destination_dir = RAW_DIR / class_name / f"plantvillage_{slugify(source_label)}"
@@ -126,7 +138,7 @@ def import_plantvillage(
         if limit_per_class is not None:
             images = images[:limit_per_class]
 
-        print(f"[INFO] {variant}/{source_label} -> {class_name}: {len(images)} imagini")
+        print(f"[INFO] {variant}/{source_label} -> {class_name}: {len(images)} images")
         if dry_run:
             continue
 
@@ -159,21 +171,21 @@ def import_plantvillage(
     if manifest_rows:
         append_manifest(manifest_rows)
 
-    print(f"[OK] Import PlantVillage complet: {total_imported} imagini copiate.")
+    print(f"[OK] PlantVillage import complete: {total_imported} images copied.")
     print(f"[OK] Manifest: {MANIFEST_PATH}")
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Importa clase relevante din PlantVillage in data/raw.")
-    parser.add_argument("--source", required=True, help="Calea catre folderul PlantVillage dezarhivat.")
+    parser = argparse.ArgumentParser(description="Import relevant classes from PlantVillage into data/raw.")
+    parser.add_argument("--source", required=True, help="Path to the extracted PlantVillage folder.")
     parser.add_argument(
         "--variant",
         default="color",
         choices=["color", "grayscale", "segmented"],
-        help="Varianta PlantVillage de importat. Implicit: color.",
+        help="PlantVillage variant to import. Default: color.",
     )
-    parser.add_argument("--limit-per-class", type=int, help="Limita optionala de imagini pe clasa.")
-    parser.add_argument("--dry-run", action="store_true", help="Afiseaza ce ar importa, fara copiere.")
+    parser.add_argument("--limit-per-class", type=int, help="Optional image limit per class.")
+    parser.add_argument("--dry-run", action="store_true", help="Show what would be imported without copying.")
     args = parser.parse_args()
 
     import_plantvillage(

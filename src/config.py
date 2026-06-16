@@ -23,13 +23,23 @@ CLASSES = [
     "apple_black_rot",
     "apple_cedar_apple_rust",
 
-    "pear_healthy",
-    "pear_rust",
-    "pear_scab",
-
     "cherry_healthy",
     "cherry_powdery_mildew",
     "cherry_leaf_spot",
+
+    "strawberry_healthy",
+    "strawberry_leaf_scorch",
+
+    "tomato_healthy",
+    "tomato_bacterial_spot",
+    "tomato_early_blight",
+    "tomato_late_blight",
+    "tomato_leaf_mold",
+    "tomato_septoria_leaf_spot",
+    "tomato_spider_mites",
+    "tomato_target_spot",
+    "tomato_mosaic_virus",
+    "tomato_yellow_leaf_curl_virus",
 ]
 
 KEYWORDS = {
@@ -50,18 +60,6 @@ KEYWORDS = {
         "apple leaf cedar rust"
     ],
 
-    "pear_healthy": [
-        "healthy pear leaf",
-        "pear tree leaf healthy"
-    ],
-    "pear_rust": [
-        "pear rust leaf disease",
-        "pear leaf orange rust"
-    ],
-    "pear_scab": [
-        "pear scab leaf disease"
-    ],
-
     "cherry_healthy": [
         "healthy cherry leaf",
         "cherry tree leaf healthy"
@@ -73,6 +71,54 @@ KEYWORDS = {
     "cherry_leaf_spot": [
         "cherry leaf spot disease",
         "cherry tree leaf spot"
+    ],
+    "strawberry_healthy": [
+        "healthy strawberry leaf",
+        "strawberry plant healthy leaves"
+    ],
+    "strawberry_leaf_scorch": [
+        "strawberry leaf scorch disease",
+        "strawberry leaf scorch spots"
+    ],
+    "tomato_healthy": [
+        "healthy tomato leaf",
+        "tomato plant healthy leaves"
+    ],
+    "tomato_bacterial_spot": [
+        "tomato bacterial spot leaf",
+        "bacterial spot tomato leaves"
+    ],
+    "tomato_early_blight": [
+        "tomato early blight leaf",
+        "early blight tomato leaves"
+    ],
+    "tomato_late_blight": [
+        "tomato late blight leaf",
+        "late blight tomato leaves"
+    ],
+    "tomato_leaf_mold": [
+        "tomato leaf mold",
+        "leaf mold tomato leaves"
+    ],
+    "tomato_septoria_leaf_spot": [
+        "tomato septoria leaf spot",
+        "septoria leaf spot tomato leaves"
+    ],
+    "tomato_spider_mites": [
+        "tomato spider mites leaves",
+        "two spotted spider mite tomato leaf"
+    ],
+    "tomato_target_spot": [
+        "tomato target spot leaf",
+        "target spot tomato leaves"
+    ],
+    "tomato_mosaic_virus": [
+        "tomato mosaic virus leaf",
+        "tomato mosaic virus leaves"
+    ],
+    "tomato_yellow_leaf_curl_virus": [
+        "tomato yellow leaf curl virus",
+        "yellow leaf curl tomato leaves"
     ],
 }
 
@@ -118,6 +164,97 @@ MULTI_LEAF_KEYWORDS = {
         "cherry tree powdery mildew foliage",
         "cherry powdery mildew infected leaves",
         "powdery mildew on cherry tree leaves"
+    ],
+    "cherry_leaf_spot": [
+        "cherry leaf spot multiple leaves",
+        "cherry leaf spot leaves on branch",
+        "cherry tree leaf spot infected foliage",
+        "cherry leaves brown spots disease",
+        "cherry leaf spot disease multiple leaves"
+    ],
+    "strawberry_healthy": [
+        "healthy strawberry plant leaves",
+        "healthy strawberry leaves close up",
+        "strawberry plant foliage healthy",
+        "strawberry leaves on plant healthy",
+        "green strawberry leaves plant"
+    ],
+    "strawberry_leaf_scorch": [
+        "strawberry leaf scorch multiple leaves",
+        "strawberry leaf scorch infected leaves",
+        "strawberry leaves brown spots disease",
+        "strawberry plant leaf scorch",
+        "strawberry leaf scorch disease foliage"
+    ],
+    "tomato_healthy": [
+        "healthy tomato plant leaves",
+        "healthy tomato foliage close up",
+        "tomato leaves on plant healthy",
+        "green tomato plant leaves",
+        "healthy tomato leaves branch"
+    ],
+    "tomato_bacterial_spot": [
+        "tomato bacterial spot multiple leaves",
+        "bacterial spot tomato plant leaves",
+        "tomato leaves bacterial spot disease",
+        "tomato bacterial spot infected foliage",
+        "tomato bacterial spot leaf lesions"
+    ],
+    "tomato_early_blight": [
+        "tomato early blight multiple leaves",
+        "early blight tomato plant leaves",
+        "tomato early blight infected foliage",
+        "tomato leaves early blight disease",
+        "tomato early blight leaf spots"
+    ],
+    "tomato_late_blight": [
+        "tomato late blight multiple leaves",
+        "late blight tomato plant leaves",
+        "tomato late blight infected foliage",
+        "tomato leaves late blight disease",
+        "tomato late blight leaf lesions"
+    ],
+    "tomato_leaf_mold": [
+        "tomato leaf mold multiple leaves",
+        "leaf mold tomato plant leaves",
+        "tomato leaf mold infected foliage",
+        "tomato leaves mold disease",
+        "tomato leaf mold underside"
+    ],
+    "tomato_septoria_leaf_spot": [
+        "tomato septoria leaf spot multiple leaves",
+        "septoria leaf spot tomato plant leaves",
+        "tomato leaves septoria spots",
+        "tomato septoria infected foliage",
+        "tomato septoria disease leaves"
+    ],
+    "tomato_spider_mites": [
+        "tomato spider mites multiple leaves",
+        "two spotted spider mite tomato leaves",
+        "tomato spider mite damage foliage",
+        "tomato leaves spider mite stippling",
+        "tomato plant spider mites leaves"
+    ],
+    "tomato_target_spot": [
+        "tomato target spot multiple leaves",
+        "target spot tomato plant leaves",
+        "tomato leaves target spot disease",
+        "tomato target spot infected foliage",
+        "tomato target spot leaf lesions"
+    ],
+    "tomato_mosaic_virus": [
+        "tomato mosaic virus multiple leaves",
+        "tomato mosaic virus plant leaves",
+        "tomato leaves mosaic virus symptoms",
+        "tomato mosaic infected foliage",
+        "tomato mosaic virus mottled leaves"
+    ],
+    "tomato_yellow_leaf_curl_virus": [
+        "tomato yellow leaf curl virus multiple leaves",
+        "yellow leaf curl tomato plant leaves",
+        "tomato leaves yellow leaf curl virus",
+        "tomato yellow leaf curl infected foliage",
+        "tomato plant curled yellow leaves"
     ],
 }
 

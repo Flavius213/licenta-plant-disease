@@ -147,7 +147,7 @@ def safe_move_or_delete(path: Path, *, action: str, quarantine_dir: Path, class_
     resolved_path = path.resolve()
     resolved_base = BASE_DIR.resolve()
     if resolved_base not in resolved_path.parents:
-        raise ValueError(f"Refuz sa modific fisier in afara proiectului: {resolved_path}")
+        raise ValueError(f"Refusing to modify a file outside the project: {resolved_path}")
 
     if action == "delete":
         path.unlink()
@@ -325,8 +325,8 @@ def filter_web_images(
         writer.writeheader()
         writer.writerows(summary_rows)
 
-    print(f"[OK] Raport similaritate: {report_path}")
-    print(f"[OK] Sumar similaritate: {summary_path}")
+    print(f"[OK] Similarity report: {report_path}")
+    print(f"[OK] Similarity summary: {summary_path}")
     for row in summary_rows:
         print(
             f"[OK] {row['class_name']}: kept={row['kept']} "
@@ -335,7 +335,7 @@ def filter_web_images(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Filtreaza imaginile web prin comparatie cu PlantVillage.")
+    parser = argparse.ArgumentParser(description="Filter web images by comparing them with PlantVillage.")
     parser.add_argument("--raw-audit", default=str(RAW_AUDIT_DEFAULT))
     parser.add_argument("--plantvillage-manifest", default=str(PLANTVILLAGE_MANIFEST_DEFAULT))
     parser.add_argument("--checkpoint", default=str(BEST_MODEL_PATH))
@@ -349,7 +349,7 @@ def main() -> None:
     parser.add_argument(
         "--fixed-threshold",
         type=float,
-        help="Foloseste un prag fix de similaritate in locul pragului calibrat pe PlantVillage.",
+        help="Use a fixed similarity threshold instead of the PlantVillage-calibrated threshold.",
     )
     parser.add_argument("--topk", type=int, default=5)
     parser.add_argument("--batch-size", type=int, default=32)
@@ -358,19 +358,19 @@ def main() -> None:
     parser.add_argument(
         "--remove-background-references",
         action="store_true",
-        help="Scoate fundalul si pentru referintele PlantVillage in timpul compararii.",
+        help="Remove the background from PlantVillage references during comparison.",
     )
     parser.add_argument(
         "--remove-background-candidates",
         action="store_true",
-        help="Scoate fundalul pentru imaginile web in timpul compararii daca nu au fost deja procesate.",
+        help="Remove the background from web images during comparison if they have not already been processed.",
     )
     parser.add_argument("--background-backend", choices=["auto", "rembg", "opencv"], default="auto")
     parser.add_argument(
         "--action",
         choices=["report", "quarantine", "delete"],
         default="report",
-        help="report = nu modifica fisiere, quarantine = muta rejecturile, delete = sterge definitiv.",
+        help="report = do not modify files, quarantine = move rejected files, delete = permanently delete them.",
     )
     args = parser.parse_args()
 

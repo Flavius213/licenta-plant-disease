@@ -66,7 +66,7 @@ class PlantDiagnosisApp:
         title = ttk.Label(header, text="Plant Diagnosis", style="Title.TLabel")
         title.pack(side=tk.LEFT)
 
-        self.status_label = ttk.Label(header, text="Se incarca modelul...", style="Status.TLabel")
+        self.status_label = ttk.Label(header, text="Loading model...", style="Status.TLabel")
         self.status_label.pack(side=tk.RIGHT)
 
         body = ttk.Frame(main)
@@ -83,15 +83,15 @@ class PlantDiagnosisApp:
         controls = ttk.Frame(left_panel, style="Panel.TFrame")
         controls.grid(row=0, column=0, sticky="ew")
 
-        choose_button = ttk.Button(controls, text="Alege poza", style="Accent.TButton", command=self.choose_image)
+        choose_button = ttk.Button(controls, text="Choose image", style="Accent.TButton", command=self.choose_image)
         choose_button.pack(side=tk.LEFT)
 
-        diagnose_button = ttk.Button(controls, text="Diagnosticheaza", command=self.diagnose_current_image)
+        diagnose_button = ttk.Button(controls, text="Diagnose", command=self.diagnose_current_image)
         diagnose_button.pack(side=tk.LEFT, padx=(8, 0))
 
         background_check = ttk.Checkbutton(
             controls,
-            text="Scoate fundal",
+            text="Remove background",
             variable=self.remove_background_var,
             command=self.refresh_current_image,
         )
@@ -108,13 +108,13 @@ class PlantDiagnosisApp:
         self.class_choice = ttk.Combobox(controls, state="readonly", width=28)
         self.class_choice.pack(side=tk.LEFT, padx=(16, 0))
 
-        feedback_button = ttk.Button(controls, text="Salveaza feedback", command=self.save_feedback)
+        feedback_button = ttk.Button(controls, text="Save feedback", command=self.save_feedback)
         feedback_button.pack(side=tk.LEFT, padx=(8, 0))
 
-        self.image_path_label = ttk.Label(left_panel, text="Nicio imagine selectata", style="Panel.TLabel")
+        self.image_path_label = ttk.Label(left_panel, text="No image selected", style="Panel.TLabel")
         self.image_path_label.grid(row=2, column=0, sticky="ew", pady=(10, 0))
 
-        self.preview_label = ttk.Label(left_panel, text="Preview imagine", anchor=tk.CENTER, style="Panel.TLabel")
+        self.preview_label = ttk.Label(left_panel, text="Image preview", anchor=tk.CENTER, style="Panel.TLabel")
         self.preview_label.grid(row=1, column=0, sticky="nsew", pady=(14, 0))
 
         right_panel = ttk.Frame(body, style="Panel.TFrame", padding=14)
@@ -122,7 +122,7 @@ class PlantDiagnosisApp:
         right_panel.rowconfigure(1, weight=1)
         right_panel.columnconfigure(0, weight=1)
 
-        result_title = ttk.Label(right_panel, text="Rezultat", style="Panel.TLabel", font=("Segoe UI", 13, "bold"))
+        result_title = ttk.Label(right_panel, text="Result", style="Panel.TLabel", font=("Segoe UI", 13, "bold"))
         result_title.grid(row=0, column=0, sticky="w")
 
         self.result_text = tk.Text(
@@ -137,7 +137,7 @@ class PlantDiagnosisApp:
             foreground="#172033",
         )
         self.result_text.grid(row=1, column=0, sticky="nsew", pady=(12, 0))
-        self.result_text.insert(tk.END, "Alege o poza cu o frunza pentru diagnostic.")
+        self.result_text.insert(tk.END, "Choose a leaf image to run a diagnosis.")
         self.result_text.configure(state=tk.DISABLED)
 
         scrollbar = ttk.Scrollbar(right_panel, orient=tk.VERTICAL, command=self.result_text.yview)
@@ -151,14 +151,14 @@ class PlantDiagnosisApp:
             self.class_choice.configure(values=self.class_names)
             if self.class_names:
                 self.class_choice.set(self.class_names[0])
-            self.status_label.configure(text=f"Model incarcat: {self.checkpoint_path.name}")
+            self.status_label.configure(text=f"Model loaded: {self.checkpoint_path.name}")
         except Exception as exc:
-            self.status_label.configure(text="Modelul nu s-a incarcat")
-            messagebox.showerror("Eroare model", str(exc))
+            self.status_label.configure(text="The model could not be loaded")
+            messagebox.showerror("Model error", str(exc))
 
     def choose_image(self) -> None:
         path = filedialog.askopenfilename(
-            title="Alege o imagine",
+            title="Choose an image",
             initialdir=str(PROJECT_DIR),
             filetypes=IMAGE_TYPES,
         )
@@ -187,18 +187,18 @@ class PlantDiagnosisApp:
             self.preview_image = ImageTk.PhotoImage(image)
             self.preview_label.configure(image=self.preview_image, text="")
         except Exception as exc:
-            self.preview_label.configure(image="", text="Nu pot afisa imaginea")
-            messagebox.showerror("Eroare imagine", str(exc))
+            self.preview_label.configure(image="", text="The image cannot be displayed")
+            messagebox.showerror("Image error", str(exc))
 
     def diagnose_current_image(self) -> None:
         if self.classifier is None:
-            messagebox.showwarning("Model lipsa", "Modelul nu este incarcat.")
+            messagebox.showwarning("Missing model", "The model is not loaded.")
             return
         if self.current_image_path is None:
-            messagebox.showinfo("Imagine lipsa", "Alege mai intai o poza.")
+            messagebox.showinfo("Missing image", "Choose an image first.")
             return
 
-        self.status_label.configure(text="Se ruleaza diagnosticul...")
+        self.status_label.configure(text="Running diagnosis...")
         self.root.update_idletasks()
 
         try:
@@ -221,10 +221,10 @@ class PlantDiagnosisApp:
             best_class, best_probability = predictions[0]
             text = format_rule(best_class, best_probability, rule_for_class(best_class))
             if result is not None:
-                text += "\n\nAnaliza multi-crop:\n"
-                text += f"- crop-uri generate: {len(result.crop_predictions)}\n"
-                text += "- vot: majoritar ponderat cu increderea CNN\n"
-                text += "- crop-uri relevante:\n"
+                text += "\n\nMulti-crop analysis:\n"
+                text += f"- generated crops: {len(result.crop_predictions)}\n"
+                text += "- vote: confidence-weighted majority\n"
+                text += "- relevant crops:\n"
                 for crop in result.crop_predictions[:8]:
                     text += (
                         f"  crop {crop.crop_index} [{crop.source}] -> "
@@ -236,10 +236,10 @@ class PlantDiagnosisApp:
                     f"- {class_name}: {probability * 100:.2f}%" for class_name, probability in predictions[1:]
                 )
             self._set_result(text)
-            self.status_label.configure(text="Diagnostic complet")
+            self.status_label.configure(text="Diagnosis complete")
         except Exception as exc:
-            self.status_label.configure(text="Eroare la diagnostic")
-            messagebox.showerror("Eroare diagnostic", str(exc))
+            self.status_label.configure(text="Diagnosis error")
+            messagebox.showerror("Diagnosis error", str(exc))
 
     def _set_result(self, text: str) -> None:
         self.result_text.configure(state=tk.NORMAL)
@@ -249,12 +249,12 @@ class PlantDiagnosisApp:
 
     def save_feedback(self) -> None:
         if self.current_image_path is None:
-            messagebox.showinfo("Imagine lipsa", "Alege mai intai o poza.")
+            messagebox.showinfo("Missing image", "Choose an image first.")
             return
 
         class_name = self.class_choice.get()
         if not class_name:
-            messagebox.showinfo("Clasa lipsa", "Alege clasa corecta pentru poza.")
+            messagebox.showinfo("Missing class", "Choose the correct class for the image.")
             return
 
         destination_dir = USER_FEEDBACK_DIR / class_name
@@ -266,8 +266,8 @@ class PlantDiagnosisApp:
         else:
             destination_path = destination_dir / f"{self.current_image_path.stem}_{index:04d}{self.current_image_path.suffix.lower()}"
             shutil.copy2(self.current_image_path, destination_path)
-        self.status_label.configure(text=f"Feedback salvat: {class_name}")
-        messagebox.showinfo("Feedback salvat", f"Poza a fost salvata pentru fine-tuning la clasa {class_name}.")
+        self.status_label.configure(text=f"Feedback saved: {class_name}")
+        messagebox.showinfo("Feedback saved", f"The image was saved for fine-tuning in class {class_name}.")
 
 
 def find_sample_image() -> Path:
@@ -275,7 +275,7 @@ def find_sample_image() -> Path:
     for path in test_dir.rglob("*"):
         if path.is_file() and path.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}:
             return path
-    raise FileNotFoundError("Nu am gasit imagini de test in data/final/test.")
+    raise FileNotFoundError("No test images were found in data/final/test.")
 
 
 def run_self_test(
@@ -290,7 +290,7 @@ def run_self_test(
     if multi_crop:
         result = classifier.predict_multi_crop(selected_image, top_k=3, max_crops=8)
         predictions = result.final_predictions
-        print(f"[OK] Crop-uri generate: {len(result.crop_predictions)}")
+        print(f"[OK] Generated crops: {len(result.crop_predictions)}")
         for crop in result.crop_predictions:
             print(
                 f"[OK] crop {crop.crop_index} [{crop.source}] -> "
@@ -299,17 +299,17 @@ def run_self_test(
     else:
         predictions = classifier.predict(selected_image, top_k=3)
     best_class, best_probability = predictions[0]
-    print(f"[OK] Imagine: {selected_image}")
+    print(f"[OK] Image: {selected_image}")
     print(format_rule(best_class, best_probability, rule_for_class(best_class)))
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Interfata Tkinter de test pentru diagnosticul plantelor.")
+    parser = argparse.ArgumentParser(description="Tkinter test interface for plant diagnosis.")
     parser.add_argument("--checkpoint", default=str(BEST_MODEL_PATH), help="Checkpoint model.")
-    parser.add_argument("--self-test", action="store_true", help="Ruleaza o predictie fara interfata grafica.")
-    parser.add_argument("--image", help="Imagine optionala pentru self-test.")
-    parser.add_argument("--remove-background", action="store_true", help="Scoate fundalul in self-test.")
-    parser.add_argument("--single-crop", action="store_true", help="Dezactiveaza multi-crop in self-test.")
+    parser.add_argument("--self-test", action="store_true", help="Run a prediction without the graphical interface.")
+    parser.add_argument("--image", help="Optional image for self-test.")
+    parser.add_argument("--remove-background", action="store_true", help="Remove the background during self-test.")
+    parser.add_argument("--single-crop", action="store_true", help="Disable multi-crop during self-test.")
     args = parser.parse_args()
 
     checkpoint_path = Path(args.checkpoint)

@@ -4,8 +4,13 @@ __pycache__/
 .venv/
 venv/
 
+mobile/node_modules/
+mobile/.expo/
+mobile/dist/
+mobile/.env
+mobile/expo-start*.log
+
 data/
-!data/.gitkeep
 
 models/classifier/*
 !models/classifier/best_model.pt

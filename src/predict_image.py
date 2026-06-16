@@ -110,15 +110,15 @@ def predict_image(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Prezice clasa unei imagini cu classifierul antrenat.")
-    parser.add_argument("--image", required=True, help="Calea catre imagine.")
+    parser = argparse.ArgumentParser(description="Predict the class of an image with the trained classifier.")
+    parser.add_argument("--image", required=True, help="Path to the image.")
     parser.add_argument("--checkpoint", default=str(BEST_MODEL_PATH), help="Checkpoint model.")
     parser.add_argument("--top-k", type=int, default=3)
-    parser.add_argument("--remove-background", action="store_true", help="Scoate fundalul inainte de predictie.")
-    parser.add_argument("--single-crop", action="store_true", help="Ruleaza predictia clasica pe imaginea intreaga.")
+    parser.add_argument("--remove-background", action="store_true", help="Remove the background before prediction.")
+    parser.add_argument("--single-crop", action="store_true", help="Run the classic prediction on the full image.")
     parser.add_argument("--max-crops", type=int, default=8)
     parser.add_argument("--detection-backend", choices=["auto", "rembg", "opencv"], default="opencv")
-    parser.add_argument("--show-crops", action="store_true", help="Afiseaza predictia pe fiecare crop.")
+    parser.add_argument("--show-crops", action="store_true", help="Show the prediction for each crop.")
     args = parser.parse_args()
 
     classifier = LoadedClassifier(Path(args.checkpoint), remove_background=args.remove_background)
@@ -133,7 +133,7 @@ def main() -> None:
         )
         predictions = result.final_predictions
         if args.show_crops:
-            print(f"Crop-uri generate: {len(result.crop_predictions)}")
+            print(f"Generated crops: {len(result.crop_predictions)}")
             for crop in result.crop_predictions:
                 print(
                     f"crop {crop.crop_index} [{crop.source}] "

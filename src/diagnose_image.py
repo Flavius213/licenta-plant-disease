@@ -9,12 +9,12 @@ from src.train_classifier import BEST_MODEL_PATH
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Prezice boala si aplica reguli simbolice pentru recomandari.")
-    parser.add_argument("--image", required=True, help="Calea catre imagine.")
-    parser.add_argument("--checkpoint", default=str(BEST_MODEL_PATH), help="Checkpoint model.")
+    parser = argparse.ArgumentParser(description="Predicts the disease and applies symbolic rules for recommendations.")
+    parser.add_argument("--image", required=True, help="Path to the image.")
+    parser.add_argument("--checkpoint", default=str(BEST_MODEL_PATH), help="Model checkpoint.")
     parser.add_argument("--top-k", type=int, default=3)
-    parser.add_argument("--remove-background", action="store_true", help="Clasifica pe varianta fara background.")
-    parser.add_argument("--single-crop", action="store_true", help="Dezactiveaza multi-crop voting.")
+    parser.add_argument("--remove-background", action="store_true", help="Classify the no-background variant.")
+    parser.add_argument("--single-crop", action="store_true", help="Disable multi-crop voting.")
     parser.add_argument("--max-crops", type=int, default=8)
     args = parser.parse_args()
 
@@ -33,8 +33,8 @@ def main() -> None:
     if crop_predictions:
         print("")
         print("Multi-crop voting:")
-        print(f"- crop-uri generate: {len(crop_predictions)}")
-        print("- vot: majoritar ponderat cu confidence")
+        print(f"- generated crops: {len(crop_predictions)}")
+        print("- vote: confidence-weighted majority")
         for crop in crop_predictions:
             print(
                 f"- crop {crop.crop_index} [{crop.source}] -> "

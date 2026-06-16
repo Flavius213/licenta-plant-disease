@@ -1,132 +1,464 @@
 {
   "apple_black_rot": {
-    "plant": "mar",
-    "status": "boala",
-    "diagnosis": "black rot la mar",
-    "likely_cause": "infectie fungica, favorizata de frunze/fructe infectate ramase in livada si umiditate ridicata",
+    "plant": "apple",
+    "leaf_type": "apple leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "apple black rot",
+    "symbolic_summary": "The symbolic rule identifies an apple leaf with symptoms compatible with black rot, so the tree should not be considered healthy for this image.",
+    "likely_cause": "fungal infection favored by infected leaves or fruits left in the orchard and by high humidity",
     "visual_symptoms": [
-      "pete maronii sau negre pe frunze",
-      "leziuni circulare pe fructe",
-      "zone uscate pe ramuri sau fructe mumificate"
+      "brown or black spots on leaves",
+      "circular lesions on fruit",
+      "dry areas on branches or mummified fruit"
     ],
     "soil_recommendation": [
-      "nu este in primul rand o problema de sol",
-      "mentine fertilizare echilibrata si evita excesul de azot",
-      "adauga compost matur doar ca suport general pentru vigoarea pomului",
-      "fa test de sol inainte de adaosuri mari de potasiu, calciu sau amendamente de pH"
+      "this is not primarily a soil problem",
+      "keep fertilization balanced and avoid excess nitrogen",
+      "add mature compost only as general support for tree vigor",
+      "test the soil before adding large amounts of potassium, calcium or pH amendments"
     ],
     "treatment": [
-      "indeparteaza frunzele, fructele si ramurile puternic infectate",
-      "nu lasa fructe mumificate in pom sau pe sol",
-      "taie pentru aerisirea coroanei",
-      "foloseste tratament fungicid preventiv conform etichetei produsului si legislatiei locale"
+      "remove heavily infected leaves, fruit and branches",
+      "do not leave mummified fruit on the tree or on the ground",
+      "prune the canopy to improve air circulation",
+      "use a preventive fungicide according to the product label and local regulations"
     ]
   },
   "apple_cedar_apple_rust": {
-    "plant": "mar",
-    "status": "boala",
-    "diagnosis": "cedar apple rust la mar",
-    "likely_cause": "infectie fungica ce alterneaza intre mar si ienupar/cedru ornamental",
+    "plant": "apple",
+    "leaf_type": "apple leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "cedar apple rust",
+    "symbolic_summary": "The symbolic rule identifies an apple leaf with rust-like symptoms, so the diagnosis is treated as disease rather than a healthy leaf.",
+    "likely_cause": "fungal infection that alternates between apple and juniper or ornamental cedar hosts",
     "visual_symptoms": [
-      "pete portocalii sau galbene pe frunze",
-      "puncte inchise in centrul petelor",
-      "caderea prematura a frunzelor in cazuri severe"
+      "orange or yellow spots on leaves",
+      "dark points in the center of the spots",
+      "premature leaf drop in severe cases"
     ],
     "soil_recommendation": [
-      "nu se rezolva prin adaugarea unui nutrient in sol",
-      "mentine solul bine drenat si acopera cu mulci organic",
-      "evita excesul de azot, care poate produce crestere frageda sensibila"
+      "this is not solved by adding a single nutrient to the soil",
+      "keep the soil well drained and cover it with organic mulch",
+      "avoid excess nitrogen because it can produce tender growth that is more sensitive"
     ],
     "treatment": [
-      "verifica daca exista ienupari infectati in apropiere",
-      "indeparteaza frunzele puternic afectate cand este practic",
-      "aplica preventiv fungicid in perioadele de risc, inainte de infectii puternice"
+      "check whether infected junipers are present nearby",
+      "remove heavily affected leaves when practical",
+      "apply preventive fungicide during risk periods before strong infections occur"
     ]
   },
   "apple_healthy": {
-    "plant": "mar",
-    "status": "sanatos",
-    "diagnosis": "frunza de mar sanatoasa",
-    "likely_cause": "nu au fost detectate simptome clare in clasele cunoscute",
+    "plant": "apple",
+    "leaf_type": "apple leaf",
+    "status": "healthy",
+    "health_label": "healthy",
+    "diagnosis": "healthy apple leaf",
+    "symbolic_summary": "The symbolic rule identifies an apple leaf without visible symptoms from the known classes, so the leaf is considered healthy.",
+    "likely_cause": "no clear symptoms were detected in the known classes",
     "visual_symptoms": [
-      "culoare verde uniforma",
-      "fara pete mari, rugina sau mucegai vizibil",
-      "tesut foliar consistent"
+      "mostly uniform green color",
+      "no large spots, rust or visible mold",
+      "consistent leaf tissue"
     ],
     "soil_recommendation": [
-      "nu adauga tratamente fara motiv",
-      "mentine mulci organic si compost matur in cantitati moderate",
-      "verifica periodic pH-ul si umiditatea solului"
+      "do not add treatments without a reason",
+      "maintain organic mulch and mature compost in moderate amounts",
+      "periodically check soil pH and moisture"
     ],
     "treatment": [
-      "monitorizeaza pomul",
-      "continua udarea si fertilizarea echilibrata",
-      "pastreaza coroana aerisita"
+      "monitor the tree",
+      "continue balanced watering and fertilization",
+      "keep the canopy well aerated"
     ]
   },
   "apple_scab": {
-    "plant": "mar",
-    "status": "boala",
-    "diagnosis": "rapan la mar",
-    "likely_cause": "infectie fungica favorizata de frunze umede si resturi infectate",
+    "plant": "apple",
+    "leaf_type": "apple leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "apple scab",
+    "symbolic_summary": "The symbolic rule identifies an apple leaf with symptoms compatible with apple scab, so the tree requires monitoring and preventive treatment.",
+    "likely_cause": "fungal infection favored by wet leaves and infected plant debris",
     "visual_symptoms": [
-      "pete maslinii sau maronii pe frunze",
-      "deformari ale frunzelor",
-      "pete rugoase pe fructe in cazuri avansate"
+      "olive or brown leaf spots",
+      "leaf deformation",
+      "rough spots on fruit in advanced cases"
     ],
     "soil_recommendation": [
-      "nu este o carenta nutritiva principala",
-      "strange frunzele cazute, deoarece pot pastra sporii",
-      "adauga compost matur si mulci pentru sanatatea generala a solului",
-      "evita fertilizarea excesiva cu azot"
+      "this is not mainly a nutrient deficiency",
+      "collect fallen leaves because they can preserve spores",
+      "add mature compost and mulch for general soil health",
+      "avoid excessive nitrogen fertilization"
     ],
     "treatment": [
-      "indeparteaza frunzele cazute si materialul infectat",
-      "taie pentru circulatia aerului",
-      "evita udarea directa pe frunze",
-      "aplica tratament fungicid preventiv in perioadele umede"
+      "remove fallen leaves and infected material",
+      "prune for better air circulation",
+      "avoid watering directly on leaves",
+      "apply preventive fungicide during wet periods"
+    ]
+  },
+  "strawberry_healthy": {
+    "plant": "strawberry",
+    "leaf_type": "strawberry leaf",
+    "status": "healthy",
+    "health_label": "healthy",
+    "diagnosis": "healthy strawberry leaf",
+    "symbolic_summary": "The symbolic rule identifies a strawberry leaf without evident symptoms from the known classes, so the leaf is considered healthy.",
+    "likely_cause": "no clear symptoms were detected in the known classes",
+    "visual_symptoms": [
+      "relatively uniform green color",
+      "no clear marginal scorch",
+      "no extended necrotic spots"
+    ],
+    "soil_recommendation": [
+      "do not add treatments without symptoms",
+      "keep the soil well drained and rich in organic matter",
+      "use mulch to stabilize moisture and reduce leaf contact with soil"
+    ],
+    "treatment": [
+      "monitor the plants",
+      "avoid watering directly on leaves",
+      "remove old or damaged leaves"
+    ]
+  },
+  "strawberry_leaf_scorch": {
+    "plant": "strawberry",
+    "leaf_type": "strawberry leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "strawberry leaf scorch",
+    "symbolic_summary": "The symbolic rule identifies a strawberry leaf with scorch or spotting symptoms, so the image is treated as diseased.",
+    "likely_cause": "fungal infection favored by humidity, dense planting and infected plant debris",
+    "visual_symptoms": [
+      "brown or purple spots on leaves",
+      "dry or scorched leaf margins",
+      "necrotic areas that may merge in severe attacks"
+    ],
+    "soil_recommendation": [
+      "this is not mainly a nutrient problem",
+      "maintain good drainage and avoid excess nitrogen",
+      "remove infected plant debris"
+    ],
+    "treatment": [
+      "remove affected leaves",
+      "increase spacing and air circulation between plants",
+      "avoid overhead watering",
+      "apply an approved fungicide if the attack expands"
+    ]
+  },
+  "tomato_healthy": {
+    "plant": "tomato",
+    "leaf_type": "tomato leaf",
+    "status": "healthy",
+    "health_label": "healthy",
+    "diagnosis": "healthy tomato leaf",
+    "symbolic_summary": "The symbolic rule identifies a tomato leaf without visible symptoms from the known classes, so the leaf is considered healthy.",
+    "likely_cause": "no clear symptoms were detected in the known classes",
+    "visual_symptoms": [
+      "green and uniform leaf",
+      "no evident circular spots",
+      "no severe yellowing or deformation"
+    ],
+    "soil_recommendation": [
+      "do not add treatments without symptoms",
+      "maintain balanced fertilization and good drainage",
+      "add mature compost in moderate amounts"
+    ],
+    "treatment": [
+      "monitor the plants",
+      "avoid watering directly on leaves",
+      "ensure good air circulation between plants"
+    ]
+  },
+  "tomato_bacterial_spot": {
+    "plant": "tomato",
+    "leaf_type": "tomato leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "tomato bacterial spot",
+    "symbolic_summary": "The symbolic rule identifies a tomato leaf with small dark spots compatible with bacterial spot.",
+    "likely_cause": "bacterial infection favored by water on leaves and splash dispersal",
+    "visual_symptoms": [
+      "small dark spots on leaves",
+      "yellow halo around spots",
+      "necrotic tissue in affected areas"
+    ],
+    "soil_recommendation": [
+      "this is not corrected by a simple nutrient addition",
+      "avoid excess nitrogen",
+      "keep mulch in place to reduce soil splash onto leaves"
+    ],
+    "treatment": [
+      "remove heavily affected leaves",
+      "avoid overhead irrigation",
+      "use healthy seeds or seedlings",
+      "apply approved products for bacterial diseases according to the label"
+    ]
+  },
+  "tomato_early_blight": {
+    "plant": "tomato",
+    "leaf_type": "tomato leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "tomato early blight",
+    "symbolic_summary": "The symbolic rule identifies a tomato leaf with concentric spots compatible with early blight.",
+    "likely_cause": "fungal infection favored by humidity and infected plant debris",
+    "visual_symptoms": [
+      "brown spots with concentric rings",
+      "yellowing around spots",
+      "lower leaves affected first"
+    ],
+    "soil_recommendation": [
+      "remove infected plant debris",
+      "keep mulch in place to reduce splash dispersal",
+      "avoid excess nitrogen"
+    ],
+    "treatment": [
+      "prune affected leaves",
+      "ensure air circulation between plants",
+      "apply approved preventive fungicide during wet periods"
+    ]
+  },
+  "tomato_late_blight": {
+    "plant": "tomato",
+    "leaf_type": "tomato leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "tomato late blight",
+    "symbolic_summary": "The symbolic rule identifies a tomato leaf with extended lesions and a water-soaked appearance compatible with late blight.",
+    "likely_cause": "oomycete infection favored by cool, wet weather and wet leaves",
+    "visual_symptoms": [
+      "large brown or black spots",
+      "water-soaked areas",
+      "possible whitish growth on the underside in wet conditions"
+    ],
+    "soil_recommendation": [
+      "this is not a soil deficiency",
+      "avoid wetting the leaves",
+      "quickly remove heavily affected plants or leaves"
+    ],
+    "treatment": [
+      "isolate or remove heavily infected material",
+      "ensure good air circulation",
+      "apply approved preventive treatments during high-risk periods"
+    ]
+  },
+  "tomato_leaf_mold": {
+    "plant": "tomato",
+    "leaf_type": "tomato leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "tomato leaf mold",
+    "symbolic_summary": "The symbolic rule identifies a tomato leaf with symptoms of leaf mold.",
+    "likely_cause": "fungal infection favored by high humidity and poor ventilation",
+    "visual_symptoms": [
+      "yellow spots on the upper leaf surface",
+      "mold-like growth on the underside",
+      "leaves drying over time"
+    ],
+    "soil_recommendation": [
+      "this is not solved directly through fertilization",
+      "reduce humidity and improve ventilation",
+      "avoid watering leaves"
+    ],
+    "treatment": [
+      "remove affected leaves",
+      "ventilate the crop or greenhouse",
+      "apply an approved fungicide if the disease progresses"
+    ]
+  },
+  "tomato_septoria_leaf_spot": {
+    "plant": "tomato",
+    "leaf_type": "tomato leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "tomato Septoria leaf spot",
+    "symbolic_summary": "The symbolic rule identifies a tomato leaf with many small spots compatible with Septoria.",
+    "likely_cause": "fungal infection favored by wet leaves and infected plant debris",
+    "visual_symptoms": [
+      "small round spots with light centers",
+      "dark margins around spots",
+      "yellowing and leaf drop"
+    ],
+    "soil_recommendation": [
+      "collect infected plant debris",
+      "use mulch to reduce splash dispersal",
+      "maintain balanced fertilization"
+    ],
+    "treatment": [
+      "remove affected leaves",
+      "avoid overhead watering",
+      "apply preventive fungicide during wet periods"
+    ]
+  },
+  "tomato_spider_mites": {
+    "plant": "tomato",
+    "leaf_type": "tomato leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "tomato spider mite damage",
+    "symbolic_summary": "The symbolic rule identifies a tomato leaf with symptoms compatible with spider mites.",
+    "likely_cause": "mite attack favored by hot and dry weather",
+    "visual_symptoms": [
+      "fine yellow speckles on leaves",
+      "uneven discoloration",
+      "fine webbing in strong attacks"
+    ],
+    "soil_recommendation": [
+      "this is not a soil problem",
+      "avoid water stress",
+      "keep plants vigorous through balanced watering"
+    ],
+    "treatment": [
+      "check the underside of leaves",
+      "remove heavily affected leaves",
+      "use biological control or approved miticides if the attack is strong"
+    ]
+  },
+  "tomato_target_spot": {
+    "plant": "tomato",
+    "leaf_type": "tomato leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "tomato target spot",
+    "symbolic_summary": "The symbolic rule identifies a tomato leaf with circular target-like spots.",
+    "likely_cause": "fungal infection favored by humidity and poor air circulation",
+    "visual_symptoms": [
+      "brown circular spots",
+      "concentric zones inside spots",
+      "yellowing around lesions"
+    ],
+    "soil_recommendation": [
+      "this is not solved by a quick soil addition",
+      "maintain mulch and good drainage",
+      "avoid excess nitrogen"
+    ],
+    "treatment": [
+      "remove infected leaves",
+      "improve crop ventilation",
+      "apply an approved fungicide during risk periods"
+    ]
+  },
+  "tomato_mosaic_virus": {
+    "plant": "tomato",
+    "leaf_type": "tomato leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "tomato mosaic virus",
+    "symbolic_summary": "The symbolic rule identifies a tomato leaf with mosaic-like discoloration compatible with tomato mosaic virus.",
+    "likely_cause": "viral infection transmitted through infected plant material, mechanical contact or contaminated tools",
+    "visual_symptoms": [
+      "light-green and dark-green mosaic pattern",
+      "deformed leaves",
+      "slowed plant growth"
+    ],
+    "soil_recommendation": [
+      "there is no soil correction for this virus",
+      "do not over-fertilize in an attempt to mask symptoms",
+      "maintain crop hygiene"
+    ],
+    "treatment": [
+      "remove strongly suspected plants",
+      "disinfect tools",
+      "use certified seedlings and avoid handling wet plants"
+    ]
+  },
+  "tomato_yellow_leaf_curl_virus": {
+    "plant": "tomato",
+    "leaf_type": "tomato leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "tomato yellow leaf curl virus",
+    "symbolic_summary": "The symbolic rule identifies a tomato leaf with yellowing and curling compatible with yellow leaf curl virus.",
+    "likely_cause": "viral infection often transmitted by whiteflies",
+    "visual_symptoms": [
+      "yellow and curled leaves",
+      "small or deformed leaves",
+      "reduced plant growth"
+    ],
+    "soil_recommendation": [
+      "this is not treated through soil additions",
+      "control host weeds and insect vectors",
+      "keep plants free from water stress"
+    ],
+    "treatment": [
+      "control whiteflies",
+      "remove heavily affected plants",
+      "use healthy seedlings and insect netting where possible"
     ]
   },
   "cherry_healthy": {
-    "plant": "cires",
-    "status": "sanatos",
-    "diagnosis": "frunza de cires sanatoasa",
-    "likely_cause": "nu au fost detectate simptome clare in clasele cunoscute",
+    "plant": "cherry",
+    "leaf_type": "cherry leaf",
+    "status": "healthy",
+    "health_label": "healthy",
+    "diagnosis": "healthy cherry leaf",
+    "symbolic_summary": "The symbolic rule identifies a cherry leaf without visible symptoms from the known classes, so the leaf is considered healthy.",
+    "likely_cause": "no clear symptoms were detected in the known classes",
     "visual_symptoms": [
-      "frunza verde si uniforma",
-      "fara depuneri albe",
-      "fara pete severe"
+      "green and uniform leaf",
+      "no white powdery deposits",
+      "no severe spots"
     ],
     "soil_recommendation": [
-      "nu adauga tratament fara simptome",
-      "mentine drenaj bun",
-      "foloseste compost matur in cantitati moderate"
+      "do not add treatments without symptoms",
+      "maintain good drainage",
+      "use mature compost in moderate amounts"
     ],
     "treatment": [
-      "monitorizeaza periodic",
-      "mentine coroana aerisita",
-      "evita stresul hidric"
+      "monitor periodically",
+      "keep the canopy aerated",
+      "avoid water stress"
     ]
   },
   "cherry_powdery_mildew": {
-    "plant": "cires",
-    "status": "boala",
-    "diagnosis": "fainare la cires",
-    "likely_cause": "infectie fungica favorizata de crestere frageda, umiditate si ventilatie slaba",
+    "plant": "cherry",
+    "leaf_type": "cherry leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "cherry powdery mildew",
+    "symbolic_summary": "The symbolic rule identifies a cherry leaf with whitish powdery deposits, so the diagnosis is powdery mildew.",
+    "likely_cause": "fungal infection favored by tender growth, humidity and poor ventilation",
     "visual_symptoms": [
-      "depunere alba-prafoasa pe frunze",
-      "frunze incretite sau deformate",
-      "crestere tanara afectata"
+      "white powdery deposit on leaves",
+      "curled or deformed leaves",
+      "young growth affected"
     ],
     "soil_recommendation": [
-      "evita excesul de azot",
-      "mentine drenaj bun si mulci organic",
-      "compostul matur poate ajuta vigoarea, dar nu trateaza direct fainarea"
+      "avoid excess nitrogen",
+      "maintain good drainage and organic mulch",
+      "mature compost can support vigor but does not directly treat powdery mildew"
     ],
     "treatment": [
-      "taie pentru aerisirea coroanei",
-      "indeparteaza lastarii foarte afectati",
-      "foloseste tratamente omologate pentru fainare, de exemplu pe baza de sulf sau produse recomandate local"
+      "prune to improve canopy airflow",
+      "remove strongly affected shoots",
+      "use approved powdery mildew treatments such as sulfur-based products or locally recommended products"
+    ]
+  },
+  "cherry_leaf_spot": {
+    "plant": "cherry",
+    "leaf_type": "cherry leaf",
+    "status": "diseased",
+    "health_label": "diseased",
+    "diagnosis": "cherry leaf spot",
+    "symbolic_summary": "The symbolic rule identifies a cherry leaf with circular spots and necrotic areas, so the image is treated as leaf spot disease.",
+    "likely_cause": "fungal infection favored by high humidity, infected fallen leaves and poor canopy ventilation",
+    "visual_symptoms": [
+      "small brown or purple spots on leaves",
+      "yellowing of affected leaves",
+      "premature leaf drop in severe attacks"
+    ],
+    "soil_recommendation": [
+      "this is not corrected directly by a simple soil addition",
+      "collect and remove infected fallen leaves",
+      "maintain good drainage and avoid excess nitrogen"
+    ],
+    "treatment": [
+      "remove affected leaves and plant debris",
+      "prune to improve canopy airflow",
+      "apply approved preventive treatments for leaf spot during risk periods"
     ]
   }
 }

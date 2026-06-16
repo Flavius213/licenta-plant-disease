@@ -4,7 +4,7 @@ import argparse
 import csv
 from pathlib import Path
 
-from src.config import METADATA_DIR
+from src.config import CLASSES, METADATA_DIR
 
 
 RAW_AUDIT_DEFAULT = METADATA_DIR / "raw_audit.csv"
@@ -20,7 +20,12 @@ def parse_classes(value: str | None) -> set[str] | None:
 
 
 def infer_source(relative_path: str) -> str:
-    return "plantvillage" if "plantvillage" in relative_path.lower() else "web_scraping"
+    lower_path = relative_path.lower()
+    if "plantvillage" in lower_path:
+        return "plantvillage"
+    if "real_photos_labeled" in lower_path:
+        return "real_labeled"
+    return "web_scraping"
 
 
 def load_similarity_keep_set(path: Path | None) -> set[str] | None:
@@ -93,17 +98,14 @@ def main() -> None:
     parser.add_argument("--output", default=str(OUTPUT_DEFAULT))
     parser.add_argument(
         "--classes",
-        default=(
-            "apple_black_rot,apple_cedar_apple_rust,apple_healthy,"
-            "apple_scab,cherry_healthy,cherry_powdery_mildew"
-        ),
+        default=",".join(CLASSES),
         help="Clase separate prin virgula.",
     )
     parser.add_argument("--min-size", type=int, default=224)
     parser.add_argument("--keep-phash-duplicates", action="store_true")
     parser.add_argument(
         "--similarity-report",
-        help="Optional: include doar imaginile web marcate keep in raportul de similaritate.",
+        help="Optional: include only web images marked as keep in the similarity report.",
     )
     args = parser.parse_args()
 
@@ -115,8 +117,8 @@ def main() -> None:
         keep_phash_duplicates=args.keep_phash_duplicates,
         similarity_keep_set=load_similarity_keep_set(Path(args.similarity_report)) if args.similarity_report else None,
     )
-    print(f"[OK] Manifest creat: {args.output}")
-    print(f"[OK] Imagini selectate: {count}")
+    print(f"[OK] Manifest created: {args.output}")
+    print(f"[OK] Selected images: {count}")
 
 
 if __name__ == "__main__":

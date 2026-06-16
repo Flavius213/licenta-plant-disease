@@ -166,13 +166,13 @@ def audit_raw_dataset() -> tuple[int, int, int]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Verifica imaginile brute si genereaza rapoarte CSV.")
+    parser = argparse.ArgumentParser(description="Validate raw images and generate CSV reports.")
     parser.parse_args()
 
     total_files, valid_images, invalid_images = audit_raw_dataset()
-    print(f"[OK] Audit complet: {total_files} fisiere, {valid_images} valide, {invalid_images} invalide.")
-    print(f"[OK] Raport imagini: {RAW_AUDIT}")
-    print(f"[OK] Distributie clase: {CLASS_DISTRIBUTION}")
+    print(f"[OK] Audit complete: {total_files} files, {valid_images} valid, {invalid_images} invalid.")
+    print(f"[OK] Image report: {RAW_AUDIT}")
+    print(f"[OK] Class distribution: {CLASS_DISTRIBUTION}")
 
 
 if __name__ == "__main__":

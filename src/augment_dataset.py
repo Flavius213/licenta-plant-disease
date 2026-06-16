@@ -18,7 +18,7 @@ def clear_output_dir(output_dir: Path) -> None:
     resolved_output = output_dir.resolve()
     resolved_base = BASE_DIR.resolve()
     if resolved_output == resolved_base or resolved_base not in resolved_output.parents:
-        raise ValueError(f"Refuz sa sterg un folder in afara proiectului: {resolved_output}")
+        raise ValueError(f"Refusing to delete a folder outside the project: {resolved_output}")
     if output_dir.exists():
         shutil.rmtree(output_dir)
 
@@ -121,7 +121,7 @@ def augment_to_target(
     train_dir = output_dir / "train"
     class_dirs = sorted(path for path in train_dir.iterdir() if path.is_dir())
     if not class_dirs:
-        raise ValueError(f"Nu exista clase in {train_dir}")
+        raise ValueError(f"No classes found in {train_dir}")
 
     fixed_val_test_count = 0
     for split in ["val", "test"]:
@@ -149,10 +149,10 @@ def augment_to_target(
             deleted = trim_augmented_files(class_dir, target_train_count)
             current_count -= deleted
             originals = iter_images(class_dir)
-            print(f"[INFO] {class_dir.name}: surplus sters={deleted}")
+            print(f"[INFO] {class_dir.name}: deleted surplus={deleted}")
 
         needed = max(0, target_train_count - current_count)
-        print(f"[INFO] {class_dir.name}: existent train={current_count}, augmentari necesare={needed}")
+        print(f"[INFO] {class_dir.name}: existing train={current_count}, required augmentations={needed}")
 
         for index in range(needed):
             source_path = originals[index % len(originals)]
@@ -162,21 +162,21 @@ def augment_to_target(
             total_created += 1
 
     counts = class_counts(output_dir)
-    print(f"[OK] Augmentari create: {total_created}")
-    print(f"[OK] Total final aproximativ: {sum(counts.values())}")
+    print(f"[OK] Created augmentations: {total_created}")
+    print(f"[OK] Approximate final total: {sum(counts.values())}")
     for class_name, count in sorted(counts.items()):
         print(f"[OK] {class_name}: {count}")
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Creeaza un dataset augmentat pana la un total dorit.")
+    parser = argparse.ArgumentParser(description="Create an augmented dataset up to a target total.")
     parser.add_argument("--source-dir", default=str(FINAL_DIR))
     parser.add_argument("--output-dir", default=str(FINAL_AUGMENTED_DIR))
     parser.add_argument("--target-total", type=int, default=50000)
     parser.add_argument("--img-size", type=int, default=IMG_SIZE)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--clear", action="store_true")
-    parser.add_argument("--trim-extra", action="store_true", help="Sterge augmentarile in plus daca o clasa depaseste tinta.")
+    parser.add_argument("--trim-extra", action="store_true", help="Delete extra augmentations if a class exceeds the target.")
     args = parser.parse_args()
 
     augment_to_target(

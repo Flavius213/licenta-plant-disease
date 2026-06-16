@@ -61,11 +61,11 @@ def make_contact_sheet(class_name: str, *, limit: int, thumb_size: int, columns:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Genereaza contact sheets pentru verificarea manuala a imaginilor.")
-    parser.add_argument("--classes", nargs="+", help="Clase de randat. Implicit: toate clasele din data/raw.")
-    parser.add_argument("--limit", type=int, default=120, help="Numar maxim de imagini pe clasa.")
-    parser.add_argument("--thumb-size", type=int, default=160, help="Dimensiunea thumbnail-urilor.")
-    parser.add_argument("--columns", type=int, default=5, help="Numar coloane in contact sheet.")
+    parser = argparse.ArgumentParser(description="Generate contact sheets for manual image review.")
+    parser.add_argument("--classes", nargs="+", help="Classes to render. Default: all classes from data/raw.")
+    parser.add_argument("--limit", type=int, default=120, help="Maximum number of images per class.")
+    parser.add_argument("--thumb-size", type=int, default=160, help="Thumbnail size.")
+    parser.add_argument("--columns", type=int, default=5, help="Number of columns in the contact sheet.")
     args = parser.parse_args()
 
     if args.classes:

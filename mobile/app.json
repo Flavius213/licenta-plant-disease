@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "Plant Diagnosis",
+    "slug": "plant-diagnosis-mobile",
+    "version": "1.0.1",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "scheme": "plantdiagnosis",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "com.flavius.plantdiagnosis",
+      "versionCode": 2,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app uses the gallery to select leaf photos.",
+          "cameraPermission": "The app uses the camera to photograph leaves."
+        }
+      ],
+      "expo-font",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "apiBaseUrl": "http://16.16.99.225:8000",
+      "eas": {
+        "projectId": "879d8d6c-6ae9-41c2-bc87-d8e0dac6f2b9"
+      }
+    }
+  }
+}

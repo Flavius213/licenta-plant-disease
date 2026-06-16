@@ -19,7 +19,7 @@ DEFAULT_REMOVE_BACKGROUND = os.getenv("REMOVE_BACKGROUND", "true").lower() in {"
 
 app = FastAPI(
     title="Plant Diagnosis API",
-    description="CNN multi-crop voting + symbolic rules pentru diagnosticul bolilor la pomi.",
+    description="CNN multi-crop voting + symbolic rules for plant disease diagnosis.",
     version="1.0.0",
 )
 
@@ -45,9 +45,18 @@ def get_classifier() -> LoadedClassifier:
 
 def rule_payload(class_name: str, confidence: float) -> dict[str, Any]:
     rule = rule_for_class(class_name)
+    plant = str(rule.get("plant", "")) if rule else ""
+    status = str(rule.get("status", "")) if rule else ""
+    leaf_type = str(rule.get("leaf_type") or f"{plant} leaf") if plant else ""
+    health_label = str(rule.get("health_label", "")) if rule else ""
     return {
         "class_name": class_name,
         "confidence": confidence,
+        "plant": plant,
+        "leaf_type": leaf_type,
+        "status": status,
+        "health_label": health_label,
+        "is_healthy": status.lower() == "healthy",
         "rule": rule,
         "explanation_text": format_rule(class_name, confidence, rule),
     }
@@ -77,7 +86,7 @@ async def diagnose(
     top_k: int = Query(3, ge=1, le=10),
 ) -> dict[str, Any]:
     if not image.content_type or not image.content_type.startswith("image/"):
-        raise HTTPException(status_code=400, detail="Fisierul trimis nu este o imagine.")
+        raise HTTPException(status_code=400, detail="The uploaded file is not an image.")
 
     model = get_classifier()
 
@@ -134,6 +143,6 @@ async def diagnose(
             "crops": crops,
         }
     except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"Eroare diagnostic: {exc}") from exc
+        raise HTTPException(status_code=500, detail=f"Diagnosis error: {exc}") from exc
     finally:
         temp_path.unlink(missing_ok=True)

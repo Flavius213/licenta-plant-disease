@@ -10,7 +10,7 @@ from src.download import IMAGE_EXTENSIONS, slugify
 
 def import_feedback_images(source_dir: Path, class_name: str) -> int:
     if not source_dir.exists():
-        raise FileNotFoundError(f"Folderul nu exista: {source_dir}")
+        raise FileNotFoundError(f"Folder does not exist: {source_dir}")
 
     destination_dir = RAW_DIR / class_name / "user_feedback"
     destination_dir.mkdir(parents=True, exist_ok=True)
@@ -39,13 +39,13 @@ def import_saved_feedback() -> int:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Importa poze corect etichetate de utilizator in data/raw.")
-    parser.add_argument("--source", help="Folder cu imagini de importat.")
-    parser.add_argument("--class-name", help="Clasa corecta pentru --source.")
+    parser = argparse.ArgumentParser(description="Import correctly labeled user photos into data/raw.")
+    parser.add_argument("--source", help="Folder with images to import.")
+    parser.add_argument("--class-name", help="Correct class for --source.")
     parser.add_argument(
         "--saved-feedback",
         action="store_true",
-        help="Importa toate pozele salvate de interfata in data/user_feedback/<clasa>.",
+        help="Import all photos saved by the interface in data/user_feedback/<class>.",
     )
     args = parser.parse_args()
 
@@ -53,10 +53,10 @@ def main() -> None:
         copied = import_saved_feedback()
     else:
         if not args.source or not args.class_name:
-            parser.error("--source si --class-name sunt necesare daca nu folosesti --saved-feedback")
+            parser.error("--source and --class-name are required unless you use --saved-feedback")
         copied = import_feedback_images(Path(args.source), args.class_name)
 
-    print(f"[OK] Imagini feedback importate: {copied}")
+    print(f"[OK] Imported feedback images: {copied}")
 
 
 if __name__ == "__main__":

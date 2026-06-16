@@ -104,7 +104,7 @@ def safe_move_or_delete(path: Path, *, action: str, quarantine_dir: Path, entry:
     resolved_path = path.resolve()
     resolved_base = BASE_DIR.resolve()
     if resolved_base not in resolved_path.parents:
-        raise ValueError(f"Refuz sa modific fisier in afara proiectului: {resolved_path}")
+        raise ValueError(f"Refusing to modify a file outside the project: {resolved_path}")
 
     if action == "delete":
         path.unlink()
@@ -264,8 +264,8 @@ def compare_to_same_class_references(
         writer.writeheader()
         writer.writerows(summary_rows)
 
-    print(f"[OK] Raport anomalii: {report_path}")
-    print(f"[OK] Sumar anomalii: {summary_path}")
+    print(f"[OK] Anomaly report: {report_path}")
+    print(f"[OK] Anomaly summary: {summary_path}")
     for row in summary_rows:
         print(
             f"[OK] {row['class_name']}: kept={row['kept']} "
@@ -275,7 +275,7 @@ def compare_to_same_class_references(
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Compara imaginile din fiecare clasa cu referinte random din aceeasi clasa."
+        description="Compare images from each class with random references from the same class."
     )
     parser.add_argument("--dataset-dir", default=str(FINAL_AUGMENTED_DIR))
     parser.add_argument("--checkpoint", default=str(BEST_MODEL_PATH))
@@ -291,13 +291,13 @@ def main() -> None:
         "--trusted-name-contains",
         action="append",
         default=["plantvillage"],
-        help="Pastreaza automat imaginile al caror nume contine acest text. Se poate repeta.",
+        help="Automatically keep images whose file name contains this text. Can be repeated.",
     )
     parser.add_argument(
         "--action",
         choices=["report", "quarantine", "delete"],
         default="report",
-        help="report = nu modifica fisiere, quarantine = muta rejecturile, delete = sterge definitiv.",
+        help="report = do not modify files, quarantine = move rejected files, delete = permanently delete them.",
     )
     args = parser.parse_args()
 

@@ -176,7 +176,7 @@ def remove_leaf_background_opencv(image: Image.Image) -> Image.Image:
 
 def remove_leaf_background(image: Image.Image, *, backend: str = "auto") -> Image.Image:
     if backend not in BACKGROUND_BACKENDS:
-        raise ValueError(f"Backend necunoscut: {backend}. Alege din {sorted(BACKGROUND_BACKENDS)}")
+        raise ValueError(f"Unknown backend: {backend}. Choose one of {sorted(BACKGROUND_BACKENDS)}")
 
     if backend in {"auto", "rembg"}:
         try:
@@ -258,7 +258,7 @@ def clear_output_dir(output_dir: Path) -> None:
     resolved_output = output_dir.resolve()
     resolved_base = BASE_DIR.resolve()
     if resolved_output == resolved_base or resolved_base not in resolved_output.parents:
-        raise ValueError(f"Refuz sa sterg un folder in afara proiectului: {resolved_output}")
+        raise ValueError(f"Refusing to delete a folder outside the project: {resolved_output}")
     if output_dir.exists():
         shutil.rmtree(output_dir)
 
@@ -298,29 +298,29 @@ def process_directory(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Scoate fundalul si pune frunza/frunzele pe fundal alb-gri.")
-    parser.add_argument("--input", help="Imagine sursa.")
-    parser.add_argument("--output", help="Imagine PNG de iesire.")
-    parser.add_argument("--source-dir", help="Folder sursa pentru procesare batch.")
-    parser.add_argument("--output-dir", help="Folder destinatie pentru procesare batch.")
-    parser.add_argument("--clear", action="store_true", help="Sterge output-dir inainte de procesare batch.")
-    parser.add_argument("--overwrite", action="store_true", help="Rescrie imaginile PNG existente.")
-    parser.add_argument("--transparent", action="store_true", help="Salveaza PNG transparent in loc de fundal alb-gri.")
+    parser = argparse.ArgumentParser(description="Remove the background and place the leaf/leaves on a gray-white checkerboard.")
+    parser.add_argument("--input", help="Source image.")
+    parser.add_argument("--output", help="Output PNG image.")
+    parser.add_argument("--source-dir", help="Source folder for batch processing.")
+    parser.add_argument("--output-dir", help="Destination folder for batch processing.")
+    parser.add_argument("--clear", action="store_true", help="Delete output-dir before batch processing.")
+    parser.add_argument("--overwrite", action="store_true", help="Overwrite existing PNG images.")
+    parser.add_argument("--transparent", action="store_true", help="Save a transparent PNG instead of a gray-white checkerboard.")
     parser.add_argument("--backend", choices=sorted(BACKGROUND_BACKENDS), default="auto")
     args = parser.parse_args()
 
     if args.input or args.output:
         if not args.input or not args.output:
-            parser.error("--input si --output trebuie folosite impreuna.")
+            parser.error("--input and --output must be used together.")
         if args.transparent:
             save_transparent_leaf(Path(args.input), Path(args.output), backend=args.backend)
         else:
             save_leaf_on_checkerboard(Path(args.input), Path(args.output), backend=args.backend)
-        print(f"[OK] Imagine salvata: {args.output}")
+        print(f"[OK] Image saved: {args.output}")
         return
 
     if not args.source_dir or not args.output_dir:
-        parser.error("Foloseste fie --input/--output, fie --source-dir/--output-dir.")
+        parser.error("Use either --input/--output or --source-dir/--output-dir.")
 
     converted = process_directory(
         Path(args.source_dir),
@@ -330,7 +330,7 @@ def main() -> None:
         transparent=args.transparent,
         backend=args.backend,
     )
-    print(f"[OK] Imagini procesate: {converted}")
+    print(f"[OK] Processed images: {converted}")
 
 
 if __name__ == "__main__":

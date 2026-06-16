@@ -42,7 +42,7 @@ def clear_output_dir(output_dir: Path) -> None:
     resolved_output = output_dir.resolve()
     resolved_base = BASE_DIR.resolve()
     if resolved_output == resolved_base or resolved_base not in resolved_output.parents:
-        raise ValueError(f"Refuz sa sterg un folder in afara proiectului: {resolved_output}")
+        raise ValueError(f"Refusing to delete a folder outside the project: {resolved_output}")
     if output_dir.exists():
         shutil.rmtree(output_dir)
 
@@ -51,7 +51,7 @@ def safe_project_path(path: Path) -> Path:
     resolved_path = path.resolve()
     resolved_base = BASE_DIR.resolve()
     if resolved_base not in resolved_path.parents and resolved_path != resolved_base:
-        raise ValueError(f"Refuz sa folosesc un fisier in afara proiectului: {resolved_path}")
+        raise ValueError(f"Refusing to use a file outside the project: {resolved_path}")
     return resolved_path
 
 
@@ -118,9 +118,9 @@ def build_dual_background_dataset(
     limit: int | None,
 ) -> None:
     if not source_dir.exists():
-        raise FileNotFoundError(f"Nu exista datasetul sursa: {source_dir}")
+        raise FileNotFoundError(f"Source dataset does not exist: {source_dir}")
     if not split_manifest_path.exists():
-        raise FileNotFoundError(f"Nu exista manifestul split: {split_manifest_path}")
+        raise FileNotFoundError(f"Split manifest does not exist: {split_manifest_path}")
 
     if clear:
         clear_output_dir(output_dir)
@@ -138,7 +138,7 @@ def build_dual_background_dataset(
         split = row["split"]
         final_path = BASE_DIR / normalize_relative_path(row["relative_path"])
         if not final_path.exists():
-            raise FileNotFoundError(f"Lipseste imaginea din split: {final_path}")
+            raise FileNotFoundError(f"Image missing from split: {final_path}")
 
         background_source, existing_no_background_source, no_background_ready = source_paths_for_row(
             row,
@@ -183,7 +183,7 @@ def build_dual_background_dataset(
             distribution[(class_name, split)]["total"] += 1
 
         if index % 250 == 0:
-            print(f"[INFO] Perechi background/no_background create: {index}/{len(rows)}")
+            print(f"[INFO] Created background/no_background pairs: {index}/{len(rows)}")
 
     output_manifest_path.parent.mkdir(parents=True, exist_ok=True)
     with output_manifest_path.open("w", newline="", encoding="utf-8") as file:
@@ -206,14 +206,14 @@ def build_dual_background_dataset(
                 }
             )
 
-    print(f"[OK] Dataset dual creat: {output_dir}")
-    print(f"[OK] Imagini totale: {len(manifest_rows)}")
+    print(f"[OK] Dual-background dataset created: {output_dir}")
+    print(f"[OK] Total images: {len(manifest_rows)}")
     print(f"[OK] Manifest: {output_manifest_path}")
-    print(f"[OK] Distributie: {output_distribution_path}")
+    print(f"[OK] Distribution: {output_distribution_path}")
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Creeaza dataset cu fiecare imagine in varianta cu si fara background.")
+    parser = argparse.ArgumentParser(description="Create a dataset with each image in both background and no-background variants.")
     parser.add_argument("--source-dir", default=str(FINAL_DIR))
     parser.add_argument("--split-manifest", default=str(SPLIT_MANIFEST_DEFAULT))
     parser.add_argument("--web-background-manifest", default=str(WEB_BACKGROUND_MANIFEST_DEFAULT))
@@ -223,7 +223,7 @@ def main() -> None:
     parser.add_argument("--backend", choices=["auto", "rembg", "opencv"], default="opencv")
     parser.add_argument("--clear", action="store_true")
     parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument("--limit", type=int, help="Proceseaza doar primele N randuri din manifest.")
+    parser.add_argument("--limit", type=int, help="Process only the first N rows from the manifest.")
     args = parser.parse_args()
 
     build_dual_background_dataset(

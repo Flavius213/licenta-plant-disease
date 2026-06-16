@@ -208,10 +208,10 @@ def train_classifier(args: argparse.Namespace) -> None:
         checkpoint = torch.load(resume_path, map_location="cpu", weights_only=False)
         if checkpoint["model_name"] != args.model:
             raise ValueError(
-                f"Checkpointul este pentru {checkpoint['model_name']}, dar ai cerut {args.model}."
+                f"The checkpoint is for {checkpoint['model_name']}, but {args.model} was requested."
             )
         if checkpoint["classes"] != classes:
-            raise ValueError("Clasele din checkpoint nu coincid cu clasele datasetului curent.")
+            raise ValueError("The checkpoint classes do not match the current dataset classes.")
         model.load_state_dict(checkpoint["state_dict"])
         print(f"[INFO] Resume checkpoint: {resume_path}")
 
@@ -229,7 +229,7 @@ def train_classifier(args: argparse.Namespace) -> None:
     )
 
     print(f"[INFO] Device: {device}")
-    print(f"[INFO] Clase: {classes}")
+    print(f"[INFO] Classes: {classes}")
     print(f"[INFO] Data dir: {data_dir}")
     print(f"[INFO] Train/Val/Test: {len(train_dataset)}/{len(val_dataset)}/{len(test_dataset)}")
     print(
@@ -250,7 +250,7 @@ def train_classifier(args: argparse.Namespace) -> None:
                 lr=args.fine_tune_learning_rate,
                 weight_decay=args.weight_decay,
             )
-            print(f"[INFO] Backbone deblocat pentru fine-tuning la lr={args.fine_tune_learning_rate}")
+            print(f"[INFO] Backbone unfrozen for fine-tuning at lr={args.fine_tune_learning_rate}")
 
         start_time = time.time()
         train_loss, train_acc = run_epoch(
@@ -301,10 +301,10 @@ def train_classifier(args: argparse.Namespace) -> None:
                 val_acc=val_acc,
                 pretrained=not args.no_pretrained,
             )
-            print(f"[OK] Best model salvat: {BEST_MODEL_PATH}")
+            print(f"[OK] Best model saved: {BEST_MODEL_PATH}")
 
         if args.patience and epoch - int(history[np.argmax([item["val_acc"] for item in history])]["epoch"]) >= args.patience:
-            print(f"[INFO] Early stopping dupa {args.patience} epoci fara imbunatatire.")
+            print(f"[INFO] Early stopping after {args.patience} epochs without improvement.")
             break
 
     save_checkpoint(
@@ -350,14 +350,14 @@ def train_classifier(args: argparse.Namespace) -> None:
     )
 
     print(f"[OK] Test accuracy: {test_acc:.4f}")
-    print(f"[OK] Istoric: {HISTORY_PATH}")
-    print(f"[OK] Raport test: {CLASSIFICATION_REPORT_PATH}")
+    print(f"[OK] History: {HISTORY_PATH}")
+    print(f"[OK] Test report: {CLASSIFICATION_REPORT_PATH}")
     print(f"[OK] Confusion matrix: {CONFUSION_MATRIX_PATH}")
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Antreneaza primul classifier pentru bolile pomilor.")
-    parser.add_argument("--data-dir", default=str(FINAL_DIR), help="Folder cu train/val/test.")
+    parser = argparse.ArgumentParser(description="Train the plant disease classifier.")
+    parser.add_argument("--data-dir", default=str(FINAL_DIR), help="Folder with train/val/test.")
     parser.add_argument("--model", default="mobilenet_v3_small", choices=["mobilenet_v3_small", "resnet18"])
     parser.add_argument("--epochs", type=int, default=EPOCHS)
     parser.add_argument("--batch-size", type=int, default=BATCH_SIZE)
@@ -368,15 +368,15 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--label-smoothing", type=float, default=0.05)
     parser.add_argument("--workers", type=int, default=0)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--threads", type=int, default=0, help="Numar thread-uri CPU pentru torch. 0 = implicit.")
-    parser.add_argument("--cpu", action="store_true", help="Forteaza rularea pe CPU.")
-    parser.add_argument("--no-pretrained", action="store_true", help="Nu foloseste greutati ImageNet.")
-    parser.add_argument("--resume-checkpoint", help="Continua fine-tuning-ul dintr-un checkpoint existent.")
-    parser.add_argument("--freeze-backbone", action="store_true", help="Antreneaza doar capul de clasificare.")
-    parser.add_argument("--freeze-epochs", type=int, default=0, help="Epoci initiale cu backbone inghetat, apoi fine-tuning.")
-    parser.add_argument("--class-weights", action="store_true", help="Compenseaza clasele dezechilibrate.")
-    parser.add_argument("--patience", type=int, default=0, help="Early stopping dupa N epoci fara imbunatatire. 0 = dezactivat.")
-    parser.add_argument("--limit-batches", type=int, help="Ruleaza doar cateva batch-uri; util pentru smoke test.")
+    parser.add_argument("--threads", type=int, default=0, help="Number of CPU threads for torch. 0 = default.")
+    parser.add_argument("--cpu", action="store_true", help="Force CPU execution.")
+    parser.add_argument("--no-pretrained", action="store_true", help="Do not use ImageNet weights.")
+    parser.add_argument("--resume-checkpoint", help="Continue fine-tuning from an existing checkpoint.")
+    parser.add_argument("--freeze-backbone", action="store_true", help="Train only the classification head.")
+    parser.add_argument("--freeze-epochs", type=int, default=0, help="Initial epochs with frozen backbone, then fine-tuning.")
+    parser.add_argument("--class-weights", action="store_true", help="Compensate for imbalanced classes.")
+    parser.add_argument("--patience", type=int, default=0, help="Early stopping after N epochs without improvement. 0 = disabled.")
+    parser.add_argument("--limit-batches", type=int, help="Run only a few batches; useful for smoke tests.")
     return parser
 
 

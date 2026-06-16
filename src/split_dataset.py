@@ -44,7 +44,7 @@ def clear_output_dir(output_dir: Path) -> None:
     resolved_output = output_dir.resolve()
     resolved_base = BASE_DIR.resolve()
     if resolved_output == resolved_base or resolved_base not in resolved_output.parents:
-        raise ValueError(f"Refuz sa sterg un folder in afara proiectului: {resolved_output}")
+        raise ValueError(f"Refusing to delete a folder outside the project: {resolved_output}")
     if output_dir.exists():
         shutil.rmtree(output_dir)
 
@@ -66,7 +66,7 @@ def build_split(
         rows_by_class[row["class_name"]].append(row)
 
     if not rows_by_class:
-        raise ValueError(f"Manifestul nu contine imagini: {source_manifest}")
+        raise ValueError(f"The manifest does not contain images: {source_manifest}")
 
     random_generator = random.Random(seed)
     selected_by_class: dict[str, list[dict[str, str]]] = {}
@@ -113,8 +113,8 @@ def build_split(
                 if not destination_path.exists():
                     shutil.copy2(source_path, destination_path)
 
-    print(f"[INFO] Clase: {len(selected_by_class)}")
-    print(f"[INFO] Imagini selectate: {sum(len(rows) for rows in selected_by_class.values())}")
+    print(f"[INFO] Classes: {len(selected_by_class)}")
+    print(f"[INFO] Selected images: {sum(len(rows) for rows in selected_by_class.values())}")
 
     if dry_run:
         for class_name in sorted(distribution):
@@ -146,23 +146,23 @@ def build_split(
                 }
             )
 
-    print(f"[OK] Split creat in: {output_dir}")
+    print(f"[OK] Split created in: {output_dir}")
     print(f"[OK] Manifest split: {SPLIT_MANIFEST}")
-    print(f"[OK] Distributie split: {SPLIT_DISTRIBUTION}")
+    print(f"[OK] Split distribution: {SPLIT_DISTRIBUTION}")
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Creeaza split train/val/test dintr-un manifest de imagini.")
+    parser = argparse.ArgumentParser(description="Create a train/val/test split from an image manifest.")
     parser.add_argument(
         "--source-manifest",
         default=str(METADATA_DIR / "plantvillage_manifest.csv"),
-        help="Manifestul sursa. Implicit: data/metadata/plantvillage_manifest.csv",
+        help="Source manifest. Default: data/metadata/plantvillage_manifest.csv",
     )
-    parser.add_argument("--max-per-class", type=int, help="Limita optionala pentru balansarea claselor.")
+    parser.add_argument("--max-per-class", type=int, help="Optional limit for class balancing.")
     parser.add_argument("--train-ratio", type=float, default=0.7)
     parser.add_argument("--val-ratio", type=float, default=0.15)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--clear-output", action="store_true", help="Sterge splitul vechi inainte de copiere.")
+    parser.add_argument("--clear-output", action="store_true", help="Delete the old split before copying.")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 

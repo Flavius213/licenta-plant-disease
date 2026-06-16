@@ -268,7 +268,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--classes",
         nargs="+",
-        help="Clasele de descarcat. Exemplu: --classes apple_scab pear_rust",
+        help="Clasele de descarcat. Exemplu: --classes apple_scab strawberry_leaf_scorch tomato_early_blight",
     )
     parser.add_argument(
         "--max-per-keyword",
