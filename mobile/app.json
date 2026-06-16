@@ -2,8 +2,9 @@
   "expo": {
     "name": "Plant Diagnosis",
     "slug": "plant-diagnosis-mobile",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
+    "icon": "./assets/app-icon.png",
     "userInterfaceStyle": "automatic",
     "scheme": "plantdiagnosis",
     "assetBundlePatterns": [
@@ -11,7 +12,12 @@
     ],
     "android": {
       "package": "com.flavius.plantdiagnosis",
-      "versionCode": 2,
+      "versionCode": 3,
+      "icon": "./assets/app-icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/app-icon.png",
+        "backgroundColor": "#eef3ef"
+      },
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.READ_MEDIA_IMAGES",
