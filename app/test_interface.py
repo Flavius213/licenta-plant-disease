@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 import sys
 import tkinter as tk
-import shutil
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
@@ -15,7 +14,6 @@ if str(PROJECT_DIR) not in sys.path:
 
 from src.predict_image import LoadedClassifier
 from src.background_removal import leaf_on_checkerboard_image
-from src.config import USER_FEEDBACK_DIR
 from src.symbolic_rules import format_rule, rule_for_class
 from src.train_classifier import BEST_MODEL_PATH
 
@@ -53,7 +51,6 @@ class PlantDiagnosisApp:
         self.root = root
         self.checkpoint_path = checkpoint_path
         self.classifier: LoadedClassifier | None = None
-        self.class_names: list[str] = []
         self.current_image_path: Path | None = None
         self.preview_image: ImageTk.PhotoImage | None = None
         self.remove_background_var = tk.BooleanVar(value=True)
@@ -90,13 +87,6 @@ class PlantDiagnosisApp:
             background=[("active", COLORS["card"])],
             foreground=[("disabled", "#9aa8a1")],
         )
-        style.configure(
-            "TCombobox",
-            fieldbackground="#f8fbf9",
-            background="#f8fbf9",
-            foreground=COLORS["ink"],
-            padding=(6, 5),
-        )
 
     def _build_layout(self) -> None:
         main = ttk.Frame(self.root, padding=24, style="App.TFrame")
@@ -113,7 +103,7 @@ class PlantDiagnosisApp:
 
         subtitle = ttk.Label(
             title_block,
-            text="Desktop test workspace for image diagnosis, crop voting and feedback capture",
+            text="Desktop test workspace for image diagnosis, background removal and crop voting",
             style="Subtitle.TLabel",
         )
         subtitle.pack(anchor="w", pady=(3, 0))
@@ -189,10 +179,9 @@ class PlantDiagnosisApp:
         settings.grid(row=3, column=0, sticky="ew", pady=(16, 0))
         settings.columnconfigure(0, weight=1)
         settings.columnconfigure(1, weight=1)
-        settings.columnconfigure(2, weight=1)
 
         settings_title = ttk.Label(settings, text="Analysis settings", style="Section.TLabel")
-        settings_title.grid(row=0, column=0, sticky="w", columnspan=3)
+        settings_title.grid(row=0, column=0, sticky="w", columnspan=2)
 
         background_check = ttk.Checkbutton(
             settings,
@@ -211,16 +200,6 @@ class PlantDiagnosisApp:
             style="Modern.TCheckbutton",
         )
         multi_crop_check.grid(row=1, column=1, sticky="w", pady=(12, 0), padx=(10, 0))
-
-        class_block = ttk.Frame(settings, style="Card.TFrame")
-        class_block.grid(row=1, column=2, sticky="e", pady=(12, 0))
-        class_label = ttk.Label(class_block, text="Feedback class", style="Small.TLabel")
-        class_label.pack(side=tk.LEFT, padx=(0, 8))
-        self.class_choice = ttk.Combobox(class_block, state="readonly", width=25)
-        self.class_choice.pack(side=tk.LEFT)
-
-        feedback_button = ttk.Button(settings, text="Save feedback", style="Soft.TButton", command=self.save_feedback)
-        feedback_button.grid(row=2, column=2, sticky="e", pady=(12, 0))
 
         right_panel = ttk.Frame(body, style="Panel.TFrame", padding=18)
         right_panel.grid(row=0, column=1, sticky="nsew", padx=(12, 0))
@@ -276,10 +255,6 @@ class PlantDiagnosisApp:
     def _load_model(self) -> None:
         try:
             self.classifier = LoadedClassifier(self.checkpoint_path)
-            self.class_names = list(self.classifier.classes)
-            self.class_choice.configure(values=self.class_names)
-            if self.class_names:
-                self.class_choice.set(self.class_names[0])
             self._set_status(f"Model loaded: {self.checkpoint_path.name}", "ok")
         except Exception as exc:
             self._set_status("The model could not be loaded", "error")
@@ -383,28 +358,6 @@ class PlantDiagnosisApp:
             elif clean_line.startswith("-") or clean_line.startswith("crop"):
                 self.result_text.tag_add("muted", start, end)
         self.result_text.configure(state=tk.DISABLED)
-
-    def save_feedback(self) -> None:
-        if self.current_image_path is None:
-            messagebox.showinfo("Missing image", "Choose an image first.")
-            return
-
-        class_name = self.class_choice.get()
-        if not class_name:
-            messagebox.showinfo("Missing class", "Choose the correct class for the image.")
-            return
-
-        destination_dir = USER_FEEDBACK_DIR / class_name
-        destination_dir.mkdir(parents=True, exist_ok=True)
-        index = len(list(destination_dir.iterdir())) + 1
-        if self.remove_background_var.get():
-            destination_path = destination_dir / f"{self.current_image_path.stem}_{index:04d}_leaf_bg.png"
-            leaf_on_checkerboard_image(self.current_image_path).save(destination_path, "PNG", optimize=True)
-        else:
-            destination_path = destination_dir / f"{self.current_image_path.stem}_{index:04d}{self.current_image_path.suffix.lower()}"
-            shutil.copy2(self.current_image_path, destination_path)
-        self._set_status(f"Feedback saved: {class_name}", "ok")
-        messagebox.showinfo("Feedback saved", f"The image was saved for fine-tuning in class {class_name}.")
 
 
 def find_sample_image() -> Path:
