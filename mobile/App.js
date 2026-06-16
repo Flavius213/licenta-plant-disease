@@ -57,7 +57,6 @@ export default function App() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
-  const [feedback, setFeedback] = useState(null);
   const [removeBackground, setRemoveBackground] = useState(true);
   const [multiCrop, setMultiCrop] = useState(true);
   const [maxCrops, setMaxCrops] = useState(8);
@@ -88,7 +87,6 @@ export default function App() {
     if (!selected.canceled && selected.assets?.length) {
       setImage(selected.assets[0]);
       setResult(null);
-      setFeedback(null);
     }
   }
 
@@ -108,7 +106,6 @@ export default function App() {
     if (!captured.canceled && captured.assets?.length) {
       setImage(captured.assets[0]);
       setResult(null);
-      setFeedback(null);
     }
   }
 
@@ -119,7 +116,6 @@ export default function App() {
     }
 
     setLoading(true);
-    setFeedback(null);
 
     try {
       const formData = new FormData();
@@ -320,24 +316,6 @@ export default function App() {
                 ))}
               </View>
             )}
-
-            <View style={styles.feedbackBox}>
-              <Text style={styles.subsectionTitle}>Is the prediction correct?</Text>
-              <View style={styles.feedbackActions}>
-                <TouchableOpacity
-                  style={[styles.feedbackButton, feedback === "yes" && styles.feedbackSelected]}
-                  onPress={() => setFeedback("yes")}
-                >
-                  <Text style={styles.feedbackText}>Yes</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.feedbackButton, feedback === "no" && styles.feedbackSelected]}
-                  onPress={() => setFeedback("no")}
-                >
-                  <Text style={styles.feedbackText}>No</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
           </View>
         )}
 
@@ -603,34 +581,6 @@ const styles = StyleSheet.create({
   },
   rowValue: {
     color: "#1b6b5c",
-    fontWeight: "800"
-  },
-  feedbackBox: {
-    marginTop: 16,
-    paddingTop: 14,
-    borderTopWidth: 1,
-    borderTopColor: "#e6eee9"
-  },
-  feedbackActions: {
-    flexDirection: "row",
-    gap: 10
-  },
-  feedbackButton: {
-    flex: 1,
-    minHeight: 42,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#cad8d2",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#f6faf8"
-  },
-  feedbackSelected: {
-    borderColor: "#1b6b5c",
-    backgroundColor: "#d9f0e8"
-  },
-  feedbackText: {
-    color: "#17443b",
     fontWeight: "800"
   },
   historyItem: {

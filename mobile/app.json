@@ -2,7 +2,7 @@
   "expo": {
     "name": "Plant Diagnosis",
     "slug": "plant-diagnosis-mobile",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/app-icon.png",
     "userInterfaceStyle": "automatic",
@@ -12,7 +12,7 @@
     ],
     "android": {
       "package": "com.flavius.plantdiagnosis",
-      "versionCode": 3,
+      "versionCode": 4,
       "icon": "./assets/app-icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/app-icon.png",
