@@ -16,7 +16,7 @@ import {
 } from "react-native";
 
 const DEFAULT_API_BASE_URL =
-  process.env.EXPO_PUBLIC_API_BASE_URL || "http://16.16.99.225:8000";
+  process.env.EXPO_PUBLIC_API_BASE_URL || "http://16.16.171.242:8000";
 
 function prettyClassName(className) {
   if (!className) {

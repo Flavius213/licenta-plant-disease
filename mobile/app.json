@@ -37,7 +37,7 @@
       ]
     ],
     "extra": {
-      "apiBaseUrl": "http://16.16.99.225:8000",
+      "apiBaseUrl": "http://16.16.171.242:8000",
       "eas": {
         "projectId": "879d8d6c-6ae9-41c2-bc87-d8e0dac6f2b9"
       }

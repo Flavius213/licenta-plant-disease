@@ -35,7 +35,7 @@ exp://192.168.100.38:8082
 By default, the app uses:
 
 ```text
-http://16.16.99.225:8000
+http://16.16.171.242:8000
 ```
 
 If you change the IP or move to an Elastic IP/domain, create the `.env` file:
